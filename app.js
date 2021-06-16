@@ -2,7 +2,10 @@ const start = document.querySelector('#start');
 const screens = document.querySelectorAll('.screen');
 const timeList = document.querySelector('#time-list');
 const timeEl = document.querySelector('#time');
-const board = document.querySelector('#board');
+const board = document.createElement('div');
+board.classList.add('board');
+screens[2].append(board);
+
 const colors = [
   '#fff',
   '#00f',
@@ -14,7 +17,7 @@ const colors = [
   '#c00'
 ];
 let time = 0;
-let score = 0;
+let score = null;
 
 start.addEventListener('mousedown', (evt) => {
   evt.preventDefault();
@@ -39,19 +42,23 @@ board.addEventListener('mousedown', (evt) => {
 });
 
 function startGame() {
-  setInterval(decreaseTime, 1000);
-  createRandomCircle();
-  setTime(time);
+  if (time > 0) {
+    setInterval(decreaseTime, 1000);
+    createRandomCircle();
+    setTime(time);
+  }
 }
 
 function decreaseTime() {
   let current = --time;
   if (current < 0) {
     finishGame();
+    return;
   } else {
     setTime(current);
   }
 }
+
 function setTime(value) {
   timeEl.innerHTML = (value < 10) ? `00:0${value}` : `00:${value}`;
 }
@@ -59,9 +66,10 @@ function setTime(value) {
 function finishGame() {
   timeEl.parentNode.classList.add('hide');
   board.innerHTML = `<h1>Счет: <span class="primary">${score}</span></h1>`;
-  board.addEventListener('mousedown', () => {
+  setTimeout(() => {
+    board.remove();
     screens[1].classList.remove('up');
-  });
+  }, 3000);
 }
 
 function getRandomNumber(min, max) {
