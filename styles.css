@@ -31,19 +31,36 @@ h1 {
   font-size: 4rem;
 }
 
+.button-reset {
+  margin-top: 30px;
+  width: 60px;
+  height: 60px;
+  background-image: url(./Flat_restart_icon.svg);
+  background-position: center;
+  background-size: cover;
+  border-radius: 50%;
+  border: 1px solid #fff;
+}
+
+.button-reset:hover {
+  cursor: pointer;
+  opacity: .6;
+}
+
 .screen {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  width: 100%;
   height: 100vh;
-  width: 100vw;
-  transition: margin 0.5s ease-out;
+  transition: all 0.5s ease-out;
   background: linear-gradient(90deg, #29323C 0%, #485563 100%);
 }
 
 .screen.up {
-  margin-top: -100vh;
+  height: 0;
+  opacity: 0;
 }
 
 .time-list {

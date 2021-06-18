@@ -3,8 +3,7 @@ const screens = document.querySelectorAll('.screen');
 const timeList = document.querySelector('#time-list');
 const timeEl = document.querySelector('#time');
 const board = document.createElement('div');
-
-
+const buttonReset = document.createElement('button');
 const colors = [
   '#fff',
   '#00f',
@@ -42,6 +41,7 @@ board.addEventListener('mousedown', (evt) => {
 function startGame() {
   if (time > 0) {
     board.classList.add('board');
+    buttonReset.classList.add('button-reset');
     screens[2].append(board);
     setInterval(decreaseTime, 1000);
     createRandomCircle();
@@ -66,6 +66,10 @@ function setTime(value) {
 
 function finishGame() {
   timeEl.parentNode.classList.add('hide');
+  buttonReset.addEventListener('mousedown', () => {
+    location.reload();
+  });
+  screens[2].append(buttonReset);
   board.innerHTML = `<h1>Счет: <span class="primary">${score}</span></h1>`;
 }
 
